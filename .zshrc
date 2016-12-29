@@ -18,7 +18,7 @@ zplug "yous/vanilli.sh"
 zplug "hlissner/zsh-autopair"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
-zplug "joel-porquet/zsh-dircolors-solarized", hook-build:setupsolarized
+zplug "joel-porquet/zsh-dircolors-solarized", hook-load:setupsolarized
 zplug "zsh-users/zsh-history-substring-search"
 
 zplug "plugins/git", from:oh-my-zsh
