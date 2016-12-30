@@ -18,7 +18,8 @@ zplug "yous/vanilli.sh"
 zplug "hlissner/zsh-autopair"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
-zplug "joel-porquet/zsh-dircolors-solarized", hook-load:setupsolarized
+# zplug "joel-porquet/zsh-dircolors-solarized", hook-load:"setupsolarized"
+zplug "joel-porquet/zsh-dircolors-solarized"
 zplug "zsh-users/zsh-history-substring-search"
 
 zplug "plugins/git", from:oh-my-zsh
@@ -38,6 +39,9 @@ fi
 
 zplug load
 
+# setup for zsh-dircolors-solarized
+setupsolarized
+
 # aliases
 alias -- -='cd -'
 alias ...='../../'
@@ -45,7 +49,7 @@ alias ....='../../../'
 alias .....='../../../../'
 alias ......='../../../../../'
 
-alias la='ls -lAh'
+alias la='ls -Ah'
 alias ll='ls -lh'
 alias ls='ls --color=auto'
 
