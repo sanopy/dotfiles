@@ -13,7 +13,8 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 # Add a bunch more of your favorite packages!
 zplug "zplug/zplug"
 zplug "djui/alias-tips"
-zplug "b4b4r07/enhancd"
+zplug "b4b4r07/enhancd", use:init.sh
+zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "yous/vanilli.sh"
 zplug "hlissner/zsh-autopair"
 zplug "zsh-users/zsh-autosuggestions"
