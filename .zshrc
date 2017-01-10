@@ -25,7 +25,9 @@ zplug "zsh-users/zsh-history-substring-search"
 zplug "plugins/git", from:oh-my-zsh
 
 # Load theme file
-zplug 'dracula/zsh', as:theme
+# zplug 'dracula/zsh', as:theme
+zplug mafredri/zsh-async, from:github
+zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
