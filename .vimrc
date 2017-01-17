@@ -13,11 +13,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Note: You don't set neobundle setting in .gvimrc!
 NeoBundle 'Townk/vim-autoclose'
 
-" molokai
+" color scheme
+NeoBundle 'sjl/badwolf'
 NeoBundle 'tomasr/molokai'
-
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'ujihisa/unite-colorscheme'
 
 call neobundle#end()
 
@@ -27,6 +25,10 @@ filetype plugin indent on
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
+
+syntax on "コードの色分け
+colorscheme badwolf
+set t_Co=256
 
 set encoding=utf-8
 scriptencoding utf-8
@@ -47,6 +49,3 @@ set backspace=start,eol,indent
 set number "行番号を表示する
 set notitle "タイトルの非表示
 set showmatch "括弧入力時の対応する括弧を表示
-syntax on "コードの色分け
-colorscheme molokai
-set t_Co=256
