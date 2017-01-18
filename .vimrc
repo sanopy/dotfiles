@@ -16,6 +16,9 @@ NeoBundle 'Townk/vim-autoclose'
 " color scheme
 NeoBundle 'sjl/badwolf'
 NeoBundle 'tomasr/molokai'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'jpo/vim-railscasts-theme'
 
 call neobundle#end()
 
@@ -26,9 +29,12 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 
-syntax on "コードの色分け
-colorscheme badwolf
 set t_Co=256
+syntax on "コードの色分け
+autocmd ColorScheme * highlight Normal ctermbg=none
+autocmd ColorScheme * highlight LineNr ctermbg=none
+set background=dark
+colorscheme badwolf
 
 set encoding=utf-8
 scriptencoding utf-8
@@ -41,11 +47,9 @@ set softtabstop=2 "連続した空白に対してタブキーやバックスペ�
 set cindent "自動インデント
 set shiftwidth=2 "自動インデントでずれる幅
 
-" [Backspace] で既存の文字を削除できるように設定
-"  start - 既存の文字を削除できるように設定
-"  eol - 行頭で[Backspace]を使用した場合上の行と連結
-"  indent - オートインデントモードでインデントを削除できるように設定
 set backspace=start,eol,indent
 set number "行番号を表示する
+set list "空白文字を表示する
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set notitle "タイトルの非表示
 set showmatch "括弧入力時の対応する括弧を表示
