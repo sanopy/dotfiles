@@ -11,11 +11,14 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Townk/vim-autoclose'
 
 " color scheme
 NeoBundle 'sjl/badwolf'
 NeoBundle 'tomasr/molokai'
+NeoBundle 'joshdick/onedark.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'jpo/vim-railscasts-theme'
@@ -53,3 +56,5 @@ set list "空白文字を表示する
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set notitle "タイトルの非表示
 set showmatch "括弧入力時の対応する括弧を表示
+
+source ~/.vim/complete.vim
