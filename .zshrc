@@ -61,6 +61,9 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color'
 
+alias cp='cp -i'
+alias rm='rm -i'
+
 # load .bash_profile
 if [ -f ~/.bash_profile ]; then
   source ~/.bash_profile
