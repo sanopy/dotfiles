@@ -1,50 +1,49 @@
-# Check if zplug is installed
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
+# Check if Antigen is installed
+if [[ ! -d ~/.antigen ]]; then
+  git clone https://github.com/zsh-users/antigen.git ~/.antigen
 fi
 
-# Essential
-source ~/.zplug/init.zsh
+source ~/.antigen/antigen.zsh
 
-# Make sure to use double quotes to prevent shell expansion
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
 
-# Add a bunch more of your favorite packages!
-zplug "zplug/zplug"
-zplug "djui/alias-tips"
-# zplug "b4b4r07/enhancd", use:init.sh
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
-zplug "yous/vanilli.sh"
-zplug "rupa/z", use:z.sh
-zplug "hlissner/zsh-autopair"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-completions"
-# zplug "joel-porquet/zsh-dircolors-solarized", hook-load:"setupsolarized"
-zplug "joel-porquet/zsh-dircolors-solarized"
-zplug "zsh-users/zsh-history-substring-search"
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+# antigen bundle heroku
+# antigen bundle pip
+# antigen bundle lein
+# antigen bundle command-not-found
+#
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
 
-zplug "plugins/git", from:oh-my-zsh
+antigen bundle djui/alias-tips
+antigen bundle yous/vanilli.sh
+antigen bundle rupa/z
+antigen bundle hlissner/zsh-autopair
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle joel-porquet/zsh-dircolors-solarized
+antigen bundle zsh-users/zsh-history-substring-search
 
-# Load theme file
-# zplug 'dracula/zsh', as:theme
-zplug mafredri/zsh-async, from:github
-zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
+# Load the theme.
+# antigen theme robbyrussell
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
 
-# Install packages that have not been installed yet
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  else
-    echo
-  fi
-fi
-
-zplug load
+# Tell Antigen that you're done.
+antigen apply
 
 # setup for zsh-dircolors-solarized
 setupsolarized
+
+# setup for fzf
+if [[ ! -d ~/.fzf ]]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # aliases
 alias -- -='cd -'
@@ -68,3 +67,4 @@ alias rm='rm -i'
 if [ -f ~/.bash_profile ]; then
   source ~/.bash_profile
 fi
+
