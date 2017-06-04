@@ -1,0 +1,9 @@
+# Compiled
+*.elc
+
+# Packaging
+.cask
+
+auto-save-list
+.mc-lists.el
+*.dat
