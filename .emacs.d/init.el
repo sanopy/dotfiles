@@ -110,6 +110,15 @@
 (require 'dashboard)
 (dashboard-setup-startup-hook)
 
+;;; ddskk
+(require 'skk-study)
+(global-set-key "\C-x\C-j" 'skk-mode)
+(global-set-key "\C-xj" 'skk-auto-fill-mode)
+(global-set-key "\C-xt" 'skk-tutorial)
+(setq skk-tut-file "/usr/share/skk/SKK.tut")
+(setq default-input-method "japanese-skk")
+;; (setq default-input-method "japanese-skk-auto-fill")
+
 ;;; expand-region
 (require 'expand-region)
 (global-set-key (kbd "C-@") 'er/expand-region)
