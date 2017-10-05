@@ -13,6 +13,8 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Note: You don't set neobundle setting in .gvimrc!
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Townk/vim-autoclose'
 
 " color scheme
@@ -47,7 +49,8 @@ set ambiwidth=double " □や○文字が崩れる問題を解決
 set expandtab "タブをスペースに変換
 set tabstop=2 "インデントをスペース2つ分に設定
 set softtabstop=2 "連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
-set cindent "自動インデント
+set autoindent "自動インデント
+set smartindent "自動インデント
 set shiftwidth=2 "自動インデントでずれる幅
 
 set backspace=start,eol,indent
@@ -58,3 +61,4 @@ set notitle "タイトルの非表示
 set showmatch "括弧入力時の対応する括弧を表示
 
 source ~/.vim/complete.vim
+source ~/.vim/snippet.vim
