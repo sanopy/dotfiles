@@ -189,21 +189,21 @@
 (require 'powerline)
 
 ;;; rainbow-delimiters
-(require 'rainbow-delimiters)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-(custom-set-faces
+; (require 'rainbow-delimiters)
+; (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+; (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "chartreuse"))))
- '(rainbow-delimiters-depth-4-face ((t (:foreground "deep sky blue"))))
- '(rainbow-delimiters-depth-5-face ((t (:foreground "yellow"))))
- '(rainbow-delimiters-depth-6-face ((t (:foreground "orchid"))))
- '(rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
- '(rainbow-delimiters-depth-8-face ((t (:foreground "sienna1")))))
+ ; '(rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
+ ; '(rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
+ ; '(rainbow-delimiters-depth-3-face ((t (:foreground "chartreuse"))))
+ ; '(rainbow-delimiters-depth-4-face ((t (:foreground "deep sky blue"))))
+ ; '(rainbow-delimiters-depth-5-face ((t (:foreground "yellow"))))
+ ; '(rainbow-delimiters-depth-6-face ((t (:foreground "orchid"))))
+ ; '(rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
+ ; '(rainbow-delimiters-depth-8-face ((t (:foreground "sienna1")))))
 
 ;;; rust-mode
 (autoload 'rust-mode "rust-mode" nil t)
@@ -267,6 +267,7 @@
 
 ;;; theme setting
 ;; (load-theme 'atom-dark t)
+(load-theme 'gruvbox-dark-hard t)
 ;; (load-theme 'leuven t)
 ;; (load-theme 'material t)
 ;; (load-theme 'material-light t)
@@ -275,16 +276,16 @@
 ;; (load-theme 'zenburn t)
 
 ;;; moe-theme
-(require 'moe-theme)
+; (require 'moe-theme)
 ;; Show highlighted buffer-id as decoration. (Default: nil)
-(setq moe-theme-highlight-buffer-id t)
+; (setq moe-theme-highlight-buffer-id t)
 ;; Choose a color for mode-line.(Default: blue)
 ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
-(moe-theme-set-color 'purple)
-(powerline-moe-theme)
+; (moe-theme-set-color 'purple)
+; (powerline-moe-theme)
 ;; Finally, apply moe-theme now.
 ;; Choose what you like, (moe-light) or (moe-dark)
-(moe-dark)
+; (moe-dark)
 
 
 ;; 透明度指定
