@@ -181,6 +181,21 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+;;; php-mode
+(eval-after-load 'php-mode
+  '(require 'php-ext))
+(add-hook 'php-mode-hook
+          (lambda ()
+            (auto-complete-mode t)
+            (require 'ac-php)
+            (setq ac-sources  '(ac-source-php ) )
+            (yas-global-mode 1)
+            (ac-php-core-eldoc-setup ) ;; enable eldoc
+            (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+            (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back)    ;go back
+            (setq tab-width 2)
+            (setq c-basic-offset 2)))
+
 ;;; popwin
 (require 'popwin)
 (popwin-mode 1)
@@ -232,14 +247,14 @@
 ;;; web-mode
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
 ;; HTML element offset indentation
 (setq web-mode-markup-indent-offset 2)
 ;; CSS offset indentation
@@ -290,7 +305,7 @@
 
 ;; 透明度指定
 ;; アクティブウィンドウ／非アクティブウィンドウ（alphaの値で透明度を指定）
-(add-to-list 'default-frame-alist '(alpha . (0.90 0.70)))
+(add-to-list 'default-frame-alist '(alpha . (0.95 0.80)))
 
 (provide 'init)
 ;;; init.el ends here
