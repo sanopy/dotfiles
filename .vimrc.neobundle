@@ -1,39 +1,39 @@
-if &compatible
-  set nocompatible
-endif
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+" Required:
+set runtimepath+=~/.vim/bundle/neobundle.vim/
 
-if dein#load_state('~/.vim/dein')
-  call dein#begin('~/.vim/dein')
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-  call dein#add('~/.vim/dein')
-  call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-  call dein#add('ConradIrwin/vim-bracketed-paste')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('Shougo/neocomplete.vim')
-  call dein#add('Shougo/neosnippet')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Townk/vim-autoclose')
+" My Bundles here:
+" Refer to |:NeoBundle-examples|.
+" Note: You don't set neobundle setting in .gvimrc!
+NeoBundle 'ConradIrwin/vim-bracketed-paste'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'Townk/vim-autoclose'
 
-  " color scheme
-  call dein#add('sjl/badwolf')
-  call dein#add('tomasr/molokai')
-  call dein#add('joshdick/onedark.vim')
-  call dein#add('altercation/vim-colors-solarized')
-  call dein#add('w0ng/vim-hybrid')
-  call dein#add('jpo/vim-railscasts-theme')
+" color scheme
+NeoBundle 'sjl/badwolf'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'joshdick/onedark.vim'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'jpo/vim-railscasts-theme'
 
-  call dein#end()
-  call dein#save_state()
-endif
+call neobundle#end()
 
+" Required:
 filetype plugin indent on
-syntax enable
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 
 set t_Co=256
 syntax on "コードの色分け
