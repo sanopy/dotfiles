@@ -19,6 +19,7 @@ if dein#load_state('~/.vim/dein')
   call dein#add('Shougo/neosnippet')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Townk/vim-autoclose')
+  call dein#add('w0rp/ale')
 
   " color scheme
   call dein#add('sjl/badwolf')
@@ -36,10 +37,10 @@ filetype plugin indent on
 syntax enable
 
 set t_Co=256
-syntax on "コードの色分け
-autocmd ColorScheme * highlight Normal ctermbg=none
-autocmd ColorScheme * highlight LineNr ctermbg=none
-set background=dark
+" syntax on "コードの色分け
+" autocmd ColorScheme * highlight Normal ctermbg=none
+" autocmd ColorScheme * highlight LineNr ctermbg=none
+" set background=dark
 colorscheme badwolf
 
 set encoding=utf-8
