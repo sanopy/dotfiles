@@ -141,6 +141,10 @@
 (require 'git-gutter-fringe)
 (global-git-gutter-mode t)
 
+;;; golden-ratio
+(require 'golden-ratio)
+(golden-ratio-mode 1)
+
 ;;; helm
 (require 'helm-config)
 (require 'helm-themes)
@@ -276,6 +280,7 @@
       '(auto-complete-mode
         flycheck-mode
         git-gutter-mode
+        golden-ratio-mode
         helm-mode
         highlight-symbol-mode
         smartparens-mode

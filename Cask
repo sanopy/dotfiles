@@ -18,6 +18,7 @@
 (depends-on "flycheck-cask")
 (depends-on "flycheck-rust")
 (depends-on "git-gutter-fringe")
+(depends-on "golden-ratio")
 (depends-on "gruvbox-theme")
 (depends-on "helm")
 (depends-on "helm-themes")
