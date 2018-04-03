@@ -100,6 +100,9 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
+;;; all-the-icons
+(require 'all-the-icons)
+
 ;;; auto-complete
 (require 'auto-complete)
 (global-auto-complete-mode t)
@@ -180,6 +183,11 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;;; neotree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 ;;; php-mode
 (eval-after-load 'php-mode
