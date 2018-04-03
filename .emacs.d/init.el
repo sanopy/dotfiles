@@ -140,6 +140,14 @@
 ;;; flycheck-rust
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 
+;;; git-gutter-fringe
+(require 'git-gutter-fringe)
+(global-git-gutter-mode t)
+
+;;; golden-ratio
+(require 'golden-ratio)
+(golden-ratio-mode 1)
+
 ;;; helm
 (require 'helm-config)
 (require 'helm-themes)
@@ -279,6 +287,8 @@
 (setq my/hidden-minor-modes
       '(auto-complete-mode
         flycheck-mode
+        git-gutter-mode
+        golden-ratio-mode
         helm-mode
         highlight-symbol-mode
         smartparens-mode
