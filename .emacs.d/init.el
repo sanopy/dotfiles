@@ -103,6 +103,22 @@
 ;;; all-the-icons
 (require 'all-the-icons)
 
+;;; AUCTeX
+(require 'auctex-latexmk)
+(auctex-latexmk-setup)
+(add-hook 'TeX-mode-hook
+          '(lambda ()
+             (setq TeX-command-default "LatexMk")
+             (setq TeX-view-program-selection '((output-pdf "Okular")))
+             (setq TeX-source-correlate-method 'synctex)
+             (setq TeX-source-correlate-start-server t)
+             (setq TeX-source-correlate-mode t)
+             (server-start)))
+;; RefTeX
+(with-eval-after-load 'tex-jp
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
+(setq reftex-plug-into-AUCTeX t)
+
 ;;; auto-complete
 (require 'auto-complete)
 (global-auto-complete-mode t)

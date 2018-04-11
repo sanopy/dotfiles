@@ -4,6 +4,8 @@
 (depends-on "ac-php")
 (depends-on "all-the-icons")
 (depends-on "atom-dark-theme")
+(depends-on "auctex")
+(depends-on "auctex-latexmk")
 (depends-on "auto-complete")
 (depends-on "bind-key")
 (depends-on "cask")
