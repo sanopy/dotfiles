@@ -119,11 +119,16 @@
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 (setq reftex-plug-into-AUCTeX t)
 
-;;; auto-complete
-(require 'auto-complete)
-(global-auto-complete-mode t)
-(define-key ac-completing-map (kbd "C-n") 'ac-next)
-(define-key ac-completing-map (kbd "C-p") 'ac-previous)
+;;; company
+(require 'company)
+(global-company-mode)
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 2)
+(setq company-selection-wrap-around t)
+
+;;; company-auctex
+(require 'company-auctex)
+(company-auctex-init)
 
 ;;; dashboard
 (require 'dashboard)
@@ -218,13 +223,6 @@
   '(require 'php-ext))
 (add-hook 'php-mode-hook
           (lambda ()
-            (auto-complete-mode t)
-            (require 'ac-php)
-            (setq ac-sources  '(ac-source-php ) )
-            (yas-global-mode 1)
-            (ac-php-core-eldoc-setup ) ;; enable eldoc
-            (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-            (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back)    ;go back
             (setq tab-width 2)
             (setq c-basic-offset 2)))
 
