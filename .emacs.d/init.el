@@ -220,6 +220,7 @@
 
 ;;; org-mode
 (require 'ox-latex)
+(setq org-latex-pdf-process '("latexmk %f"))
 (setq org-latex-default-class "bxjsarticle")
 (add-to-list 'org-latex-classes
              '("bxjsarticle"
