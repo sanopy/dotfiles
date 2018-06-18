@@ -1,37 +1,22 @@
-if &compatible
-  set nocompatible
-endif
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+call plug#begin('~/.vim/plugged')
 
-if dein#load_state('~/.vim/dein')
-  call dein#begin('~/.vim/dein')
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'scrooloose/nerdtree'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Townk/vim-autoclose'
+Plug 'w0rp/ale'
 
-  call dein#add('~/.vim/dein')
-  call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
+" color scheme
+Plug 'sjl/badwolf'
+Plug 'tomasr/molokai'
+Plug 'joshdick/onedark.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'w0ng/vim-hybrid'
+Plug 'jpo/vim-railscasts-theme'
 
-  call dein#add('ConradIrwin/vim-bracketed-paste')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('Shougo/neocomplete.vim')
-  call dein#add('Shougo/neosnippet')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Townk/vim-autoclose')
-  call dein#add('w0rp/ale')
-
-  " color scheme
-  call dein#add('sjl/badwolf')
-  call dein#add('tomasr/molokai')
-  call dein#add('joshdick/onedark.vim')
-  call dein#add('altercation/vim-colors-solarized')
-  call dein#add('w0ng/vim-hybrid')
-  call dein#add('jpo/vim-railscasts-theme')
-
-  call dein#end()
-  call dein#save_state()
-endif
+call plug#end()
 
 filetype plugin indent on
 syntax enable

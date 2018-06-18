@@ -3,9 +3,9 @@
 # setup for Cask
 curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
-# setup for dein.vim
-mkdir -p ~/.vim/dein
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s ~/.vim/dein
+# setup for vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # setup for Rust
 curl https://sh.rustup.rs -sSf | sh
