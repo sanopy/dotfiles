@@ -47,5 +47,4 @@ set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set notitle "タイトルの非表示
 set showmatch "括弧入力時の対応する括弧を表示
 
-source ~/.vim/complete.vim
 source ~/.vim/snippet.vim
