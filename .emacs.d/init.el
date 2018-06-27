@@ -1,6 +1,12 @@
-;;; package --- Summary
-;;; Code:
+;;; init.el --- My configurations for Emacs
+
 ;;; Commentary:
+
+;;;; How to set up my configurations for Emacs?
+;; $ cd ~/.emacs.d
+;; $ cask install
+
+;;; Code:
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -20,6 +26,17 @@
 
 ;; スタートアップメッセージを表示しない
 (setq inhibit-startup-message t)
+
+;; 右から左に読む言語に対応させないことで描画高速化
+(setq-default bidi-display-reordering nil)
+
+;; ガベージコレクションの発動頻度設定
+(setq gc-cons-threshold (* 512 1024 1024))
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (setq gc-cons-threshold 800000)
+            (garbage-collect)))
 
 ;; 行番号表示
 (require 'linum)
@@ -100,131 +117,174 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
+;;; use-package
+(eval-when-compile
+  (require 'use-package))
+
 ;;; all-the-icons
-(require 'all-the-icons)
+(use-package all-the-icons
+  :defer t)
 
 ;;; AUCTeX
-(require 'auctex-latexmk)
-(auctex-latexmk-setup)
-(add-hook 'TeX-mode-hook
-          '(lambda ()
-             (setq TeX-command-default "LatexMk")
-             (setq TeX-view-program-selection '((output-pdf "Okular")))
-             (setq TeX-source-correlate-method 'synctex)
-             (setq TeX-source-correlate-start-server t)
-             (setq TeX-source-correlate-mode t)
-             (server-start)))
-;; RefTeX
-(with-eval-after-load 'tex-jp
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
-(setq reftex-plug-into-AUCTeX t)
+(use-package auctex-latexmk
+  :defer t
+  :config
+  (auctex-latexmk-setup)
+  (add-hook 'TeX-mode-hook
+            '(lambda ()
+               (setq TeX-command-default "LatexMk")
+               (setq TeX-view-program-selection '((output-pdf "Okular")))
+               (setq TeX-source-correlate-method 'synctex)
+               (setq TeX-source-correlate-start-server t)
+               (setq TeX-source-correlate-mode t)
+               (server-start)))
+  ;; RefTeX
+  (with-eval-after-load 'tex-jp
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
+  (setq reftex-plug-into-AUCTeX t))
 
 ;;; company
-(require 'company)
-(global-company-mode)
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 2)
-(setq company-selection-wrap-around t)
+(use-package company
+  :defer t
+  :diminish company-mode
+  :init
+  (global-company-mode)
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 2)
+  (setq company-selection-wrap-around t))
 
 ;;; company-auctex
-(require 'company-auctex)
-(company-auctex-init)
+(use-package company-auctex
+  :defer t
+  :commands (TeX-mode LaTeX-mode)
+  :config
+  (company-auctex-init))
 
 ;;; dashboard
-(require 'dashboard)
-(dashboard-setup-startup-hook)
+(use-package dashboard
+  :defer t
+  :disabled t
+  :init
+  (dashboard-setup-startup-hook))
 
 ;;; ddskk
-(require 'skk-study)
-(global-set-key "\C-x\C-j" 'skk-mode)
-(global-set-key "\C-xj" 'skk-auto-fill-mode)
-(global-set-key "\C-xt" 'skk-tutorial)
-(setq skk-tut-file "/usr/share/skk/SKK.tut")
-(setq default-input-method "japanese-skk")
-;; (setq default-input-method "japanese-skk-auto-fill")
+(use-package skk-study
+  :commands (skk-mode skk-auto-fill-mode skk-tutorial)
+  :bind (("C-x C-j" . skk-mode)
+         ("C-x j" . skk-auto-fill-mode)
+         ("C-x t" . skk-tutorial))
+  :config
+  (setq skk-tut-file "/usr/share/skk/SKK.tut")
+  (setq default-input-method "japanese-skk")
+  ;; (setq default-input-method "japanese-skk-auto-fill")
+  )
 
 ;;; expand-region
-(require 'expand-region)
-(global-set-key (kbd "C-@") 'er/expand-region)
-(global-set-key (kbd "C-M-@") 'er/contract-region)
+(use-package expand-region
+  :bind (("C-@" . er/expand-region)
+         ("C-M-@" . er/contract-region)))
 
 ;;; flycheck
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(add-hook 'c++-mode-hook (lambda()
-                           (setq flycheck-gcc-language-standard "c++11")
-                           (setq flycheck-clang-language-standard "c++11")))
-(eval-after-load 'flycheck
-  '(custom-set-variables
-    '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))))
+(use-package flycheck
+  :defer t
+  :diminish flycheck-mode
+  :init
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (add-hook 'c++-mode-hook (lambda()
+                             (setq flycheck-gcc-language-standard "c++11")
+                             (setq flycheck-clang-language-standard "c++11")))
+  :config
+  (custom-set-variables
+   '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))))
 
 ;;; flycheck-rust
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 
 ;;; git-gutter-fringe
-(require 'git-gutter-fringe)
-(global-git-gutter-mode t)
+(use-package git-gutter-fringe
+  :diminish git-gutter-mode
+  :config
+  (global-git-gutter-mode t))
 
 ;;; golden-ratio
-(require 'golden-ratio)
-(golden-ratio-mode 1)
+(use-package golden-ratio
+  :diminish golden-ratio-mode
+  :config
+  (golden-ratio-mode 1))
 
 ;;; helm
-(require 'helm-config)
-(require 'helm-themes)
-(helm-mode 1)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x C-r") 'helm-recentf)
-(define-key global-map [remap list-buffers] 'helm-mini)
-(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+(use-package helm
+  :defer t
+  :diminish helm-mode
+  :bind (("M-x" . helm-M-x)
+         ("M-y" . helm-show-kill-ring)
+         ("C-x C-f" . helm-find-files)
+         ("C-x C-r" . helm-recentf))
+  :config
+  (use-package helm-config
+    :config
+    (helm-mode 1))
+  (define-key global-map [remap list-buffers] 'helm-mini)
+  (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+  (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action))
+(use-package helm-themes
+  :commands helm-themes)
 
 ;;; highlight-symbol
-(require 'highlight-symbol)
-(setq highlight-symbol-idle-delay 1.0) ; 1秒後自動ハイライト
-(add-hook 'prog-mode-hook 'highlight-symbol-mode)
-(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+(use-package highlight-symbol
+  :defer t
+  :diminish highlight-symbol-mode
+  :init
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode)
+  (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+  :config
+  (setq highlight-symbol-idle-delay 1.0) ; 1秒後自動ハイライト
+  )
 
 ;;; js2-mode
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(setq js2-basic-offset 2)
-(setq js2-include-browser-externs nil)
-(setq js2-mode-show-parse-errors nil)
-(setq js2-mode-show-strict-warnings nil)
-(setq js2-highlight-external-variables nil)
-(setq js2-include-jslint-globals nil)
+(use-package js2-mode
+  :defer t
+  :mode (("\\.js\\'" . js2-mode))
+  :config
+  (setq js2-basic-offset 2)
+  (setq js2-include-browser-externs nil)
+  (setq js2-mode-show-parse-errors nil)
+  (setq js2-mode-show-strict-warnings nil)
+  (setq js2-highlight-external-variables nil)
+  (setq js2-include-jslint-globals nil))
 
 ;;; markdown-mode
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-(autoload 'gfm-mode "markdown-mode"
-   "Major mode for editing GitHub Flavored Markdown files" t)
-(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(use-package markdown-mode
+  :mode (("\\.markdown\\'" . markdown-mode)
+         ("\\.md\\'"       . markdown-mode)))
+(use-package gfm-mode
+  :mode (("README\\.md\\'" . gfm-mode)))
 
 ;;; multiple-cursors
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(use-package multiple-cursors
+  :bind
+  ("C-S-c C-S-c" . mc/edit-lines)
+  ("C->"         . mc/mark-next-like-this)
+  ("C-<"         . mc/mark-previous-like-this)
+  ("C-c C-<"     . mc/mark-all-like-this))
 
 ;;; neotree
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(use-package neotree
+  :defer t
+  :bind ([f8] . neotree-toggle)
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 ;;; org-mode
-(require 'ox-latex)
-(setq org-latex-pdf-process '("latexmk %f"))
-(setq org-latex-default-class "bxjsarticle")
-(add-to-list 'org-latex-classes
-             '("bxjsarticle"
-               "\\documentclass[autodetect-engine,dvi=dvipdfmx,11pt,a4paper,ja=standard]{bxjsarticle}
+(use-package ox-latex
+  :defer t
+  :config
+  (setq org-latex-pdf-process '("latexmk %f"))
+  (setq org-latex-default-class "bxjsarticle")
+  (add-to-list 'org-latex-classes
+               '("bxjsarticle"
+                 "\\documentclass[autodetect-engine,dvi=dvipdfmx,11pt,a4paper,ja=standard]{bxjsarticle}
 [NO-DEFAULT-PACKAGES]
 \\usepackage{amsmath}
 \\usepackage{newtxtext,newtxmath}
@@ -234,102 +294,98 @@
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 ;;; php-mode
-(eval-after-load 'php-mode
-  '(require 'php-ext))
-(add-hook 'php-mode-hook
-          (lambda ()
-            (setq tab-width 2)
-            (setq c-basic-offset 2)))
+(use-package php-mode
+  :defer t
+  :mode ("\\.php\\'" . php-mode)
+  :config
+  (setq tab-width 2)
+  (setq c-basic-offset 2))
+(use-package php-ext
+  :commands (php-mode))
 
 ;;; popwin
-(require 'popwin)
-(popwin-mode 1)
+(use-package popwin
+  :disabled t
+  :config
+  (popwin-mode 1))
 
 ;;; powerline
-(require 'powerline)
+(use-package powerline
+  :defer t)
 
 ;;; rainbow-delimiters
-; (require 'rainbow-delimiters)
-; (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-; (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- ; '(rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
- ; '(rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
- ; '(rainbow-delimiters-depth-3-face ((t (:foreground "chartreuse"))))
- ; '(rainbow-delimiters-depth-4-face ((t (:foreground "deep sky blue"))))
- ; '(rainbow-delimiters-depth-5-face ((t (:foreground "yellow"))))
- ; '(rainbow-delimiters-depth-6-face ((t (:foreground "orchid"))))
- ; '(rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
- ; '(rainbow-delimiters-depth-8-face ((t (:foreground "sienna1")))))
+(use-package rainbow-delimiters
+  :defer t
+  :disabled t
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  :config
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
+   '(rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
+   '(rainbow-delimiters-depth-3-face ((t (:foreground "chartreuse"))))
+   '(rainbow-delimiters-depth-4-face ((t (:foreground "deep sky blue"))))
+   '(rainbow-delimiters-depth-5-face ((t (:foreground "yellow"))))
+   '(rainbow-delimiters-depth-6-face ((t (:foreground "orchid"))))
+   '(rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
+   '(rainbow-delimiters-depth-8-face ((t (:foreground "sienna1"))))))
 
 ;;; rust-mode
-(autoload 'rust-mode "rust-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-(setq rust-format-on-save t)
+(use-package rust-mode
+  :mode (("\\.rs\\'" . rust-mode))
+  :config
+  (setq rust-format-on-save t))
 
 ;;; SLIME
-(setq inferior-lisp-program "clisp")
-(require 'slime)
-(slime-setup '(slime-repl slime-fancy slime-banner))
+(use-package slime
+  :commands (slime)
+  :init
+  (setq inferior-lisp-program "clisp")
+  :config
+  (slime-setup '(slime-repl slime-fancy slime-banner)))
 
 ;;; smooth-scroll
-(require 'smooth-scroll)
-(smooth-scroll-mode t)
-
-;;; twittering-mode
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
-(setq twittering-icon-mode t)
-(setq twittering-use-icon-storage t)
-(setq twittering-display-remaining t)
+(use-package smooth-scrolling
+  :defer t
+  :init
+  (smooth-scrolling-mode 1))
 
 ;;; undo-tree
-(require 'undo-tree)
-(global-undo-tree-mode)
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :defer t
+  :init
+  (global-undo-tree-mode))
 
 ;;; web-mode
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-;; HTML element offset indentation
-(setq web-mode-markup-indent-offset 2)
-;; CSS offset indentation
-(setq web-mode-css-indent-offset 2)
-;; Script/code offset indentation (for JavaScript, Java, PHP, Ruby, VBScript, Python, etc.)
-(setq web-mode-code-indent-offset 2)
-;; Auto-pairing
-(setq web-mode-enable-auto-pairing t)
-;; CSS colorization
-(setq web-mode-enable-css-colorization t)
-
-
-;; マイナーモードをモードラインに表示しない
-(setq my/hidden-minor-modes
-      '(auto-complete-mode
-        flycheck-mode
-        git-gutter-mode
-        golden-ratio-mode
-        helm-mode
-        highlight-symbol-mode
-        smartparens-mode
-        smooth-scroll-mode
-        undo-tree-mode))
-(--each my/hidden-minor-modes
-  (setq minor-mode-alist
-        (cons (list it "") (assq-delete-all it minor-mode-alist))))
+(use-package web-mode
+  :defer t
+  :mode (("\\.phtml\\'"    . web-mode)
+         ("\\.[agj]sp\\'"  . web-mode)
+         ("\\.as[cp]x\\'"  . web-mode)
+         ("\\.erb\\'"      . web-mode)
+         ("\\.mustache\\'" . web-mode)
+         ("\\.djhtml\\'"   . web-mode)
+         ("\\.html?\\'"    . web-mode)
+         ("\\.css\\'"      . web-mode))
+  :config
+  ;; HTML element offset indentation
+  (setq web-mode-markup-indent-offset 2)
+  ;; CSS offset indentation
+  (setq web-mode-css-indent-offset 2)
+  ;; Script/code offset indentation (for JavaScript, Java, PHP, Ruby, VBScript, Python, etc.)
+  (setq web-mode-code-indent-offset 2)
+  ;; Auto-pairing
+  (setq web-mode-enable-auto-pairing t)
+  ;; CSS colorization
+  (setq web-mode-enable-css-colorization t))
 
 ;;; theme setting
 ;; (load-theme 'atom-dark t)
@@ -342,21 +398,24 @@
 ;; (load-theme 'zenburn t)
 
 ;;; moe-theme
-; (require 'moe-theme)
-;; Show highlighted buffer-id as decoration. (Default: nil)
-; (setq moe-theme-highlight-buffer-id t)
-;; Choose a color for mode-line.(Default: blue)
-;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
-; (moe-theme-set-color 'purple)
-; (powerline-moe-theme)
-;; Finally, apply moe-theme now.
-;; Choose what you like, (moe-light) or (moe-dark)
-; (moe-dark)
+(use-package moe-theme
+  :disabled
+  :config
+  ;; Show highlighted buffer-id as decoration. (Default: nil)
+  (setq moe-theme-highlight-buffer-id t)
+  ;; Choose a color for mode-line.(Default: blue)
+  ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
+  (moe-theme-set-color 'purple)
+  (powerline-moe-theme)
+  ;; Finally, apply moe-theme now.
+  ;; Choose what you like, (moe-light) or (moe-dark)
+  (moe-dark))
 
 
 ;; 透明度指定
 ;; アクティブウィンドウ／非アクティブウィンドウ（alphaの値で透明度を指定）
 (add-to-list 'default-frame-alist '(alpha . (0.95 0.80)))
 
-(provide 'init)
+; (provide 'init)
+
 ;;; init.el ends here
