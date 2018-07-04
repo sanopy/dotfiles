@@ -285,16 +285,24 @@
   (add-to-list 'org-latex-classes
                '("bxjsarticle"
                  "\\documentclass[autodetect-engine,dvi=dvipdfmx,11pt,a4paper,ja=standard]{bxjsarticle}
-[NO-DEFAULT-PACKAGES]
-\\usepackage{amsmath}
-\\usepackage{newtxtext,newtxmath}
-\\usepackage{graphicx}
-\\usepackage[hidelinks]{hyperref}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+[NO-DEFAULT-PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-packages-alist '("" "amsmath") t)
+  (add-to-list 'org-latex-packages-alist '("" "color") t)
+  (add-to-list 'org-latex-packages-alist '("" "graphicx") t)
+  (add-to-list 'org-latex-packages-alist '("" "newtxtext,newtxmath") t)
+  (add-to-list 'org-latex-packages-alist '("" "here") t)
+  (add-to-list 'org-latex-packages-alist '("hidelinks" "hyperref") t)
+  (add-to-list 'org-latex-packages-alist '("" "listings") t)
+  (add-to-list 'org-latex-packages-alist '("" "minted") t)
+  (setq org-latex-listings 'minted)
+  (setq org-latex-minted-options '(("breaklines" "true")
+                                   ("breakanywhere" "true")
+                                   ("linenos"))))
 
 ;;; php-mode
 (use-package php-mode
