@@ -29,8 +29,9 @@ antigen bundle zsh-users/zsh-history-substring-search
 
 # Load the theme.
 # antigen theme robbyrussell
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
+# antigen bundle mafredri/zsh-async
+# antigen bundle sindresorhus/pure
+antigen theme geometry-zsh/geometry
 
 # Tell Antigen that you're done.
 antigen apply
