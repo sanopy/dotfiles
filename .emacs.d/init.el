@@ -285,7 +285,7 @@
   (add-to-list 'org-latex-classes
                '("bxjsarticle"
                  "\\documentclass[autodetect-engine,dvi=dvipdfmx,11pt,a4paper,ja=standard]{bxjsarticle}
-[NO-DEFAULT-PACKAGES]"
+                 [NO-DEFAULT-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -396,8 +396,11 @@
   (setq web-mode-enable-css-colorization t))
 
 ;;; theme setting
+(use-package darkokai-theme
+  :ensure t
+  :config (load-theme 'darkokai t))
 ;; (load-theme 'atom-dark t)
-(load-theme 'gruvbox-dark-hard t)
+;; (load-theme 'gruvbox-dark-hard t)
 ;; (load-theme 'leuven t)
 ;; (load-theme 'material t)
 ;; (load-theme 'material-light t)
