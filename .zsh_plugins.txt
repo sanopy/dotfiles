@@ -1,0 +1,19 @@
+robbyrussell/oh-my-zsh path:/plugins/git
+robbyrussell/oh-my-zsh path:/plugins/command-not-found
+
+# Syntax highlighting bundle.
+zsh-users/zsh-syntax-highlighting
+
+djui/alias-tips
+yous/vanilli.sh
+rupa/z
+hlissner/zsh-autopair
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+joel-porquet/zsh-dircolors-solarized kind:zsh-theme
+zsh-users/zsh-history-substring-search
+
+# Load the theme.
+# mafredri/zsh-async
+# sindresorhus/pure
+geometry-zsh/geometry

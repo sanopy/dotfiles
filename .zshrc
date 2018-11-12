@@ -1,43 +1,4 @@
-# Check if Antigen is installed
-if [[ ! -d ~/.antigen ]]; then
-  git clone https://github.com/zsh-users/antigen.git ~/.antigen
-fi
-
-source ~/.antigen/antigen.zsh
-
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-# antigen bundle heroku
-# antigen bundle pip
-# antigen bundle lein
-antigen bundle command-not-found
-
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
-
-antigen bundle djui/alias-tips
-antigen bundle yous/vanilli.sh
-antigen bundle rupa/z
-antigen bundle hlissner/zsh-autopair
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle joel-porquet/zsh-dircolors-solarized
-antigen bundle zsh-users/zsh-history-substring-search
-
-# Load the theme.
-# antigen theme robbyrussell
-# antigen bundle mafredri/zsh-async
-# antigen bundle sindresorhus/pure
-antigen theme geometry-zsh/geometry
-
-# Tell Antigen that you're done.
-antigen apply
-
-# setup for zsh-dircolors-solarized
-setupsolarized
+source ~/.zsh_plugins.sh
 
 # setup for fzf
 if [[ ! -d ~/.fzf ]]; then
