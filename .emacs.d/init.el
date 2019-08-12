@@ -38,10 +38,6 @@
             (setq gc-cons-threshold 800000)
             (garbage-collect)))
 
-;; 行番号表示
-(require 'linum)
-(global-linum-mode 1)
-
 ;; カーソル行をハイライトする
 ;(global-hl-line-mode t)
 
@@ -207,6 +203,10 @@
   :config
   (global-git-gutter-mode t))
 
+;;; go-mode
+(autoload 'go-mode "go-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+
 ;;; golden-ratio
 (use-package golden-ratio
   :diminish golden-ratio-mode
@@ -254,6 +254,11 @@
   (setq js2-highlight-external-variables nil)
   (setq js2-include-jslint-globals nil))
 
+;; linum
+(use-package linum
+  :config
+  (global-linum-mode 1))
+
 ;;; markdown-mode
 (use-package markdown-mode
   :mode (("\\.markdown\\'" . markdown-mode)
@@ -279,12 +284,23 @@
 ;;; org-mode
 (use-package ox-latex
   :defer t
+  :init
+  (setq org-support-shift-select t)
   :config
   (setq org-latex-pdf-process '("latexmk %f"))
   (setq org-latex-default-class "bxjsarticle")
   (add-to-list 'org-latex-classes
                '("bxjsarticle"
                  "\\documentclass[autodetect-engine,dvi=dvipdfmx,11pt,a4paper,ja=standard]{bxjsarticle}
+                 [NO-DEFAULT-PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("twocolumn"
+                 "\\documentclass[autodetect-engine,dvi=dvipdfmx,10pt,a4paper,ja=standard,twocolumn]{bxjsarticle}
                  [NO-DEFAULT-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -397,8 +413,30 @@
 
 ;;; theme setting
 (use-package darkokai-theme
+  :disabled t
   :ensure t
   :config (load-theme 'darkokai t))
+
+(use-package doom-themes
+  :ensure t
+  :custom
+  (doom-themes-enable-italic t)
+  (doom-themes-enable-bold t)
+  :config
+  (load-theme 'doom-peacock t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  ; (doom-themes-neotree-config)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+
 ;; (load-theme 'atom-dark t)
 ;; (load-theme 'gruvbox-dark-hard t)
 ;; (load-theme 'leuven t)
