@@ -5,9 +5,6 @@ cd `dirname $0`
 # setup for Cask
 curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
-# setup for antibody
-zsh ./setup_antibody.zsh
-
 # setup for vim-plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
