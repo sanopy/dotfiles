@@ -11,35 +11,45 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit installer's chunk
 
-zinit ice wait'!0'
-zinit snippet OMZ::plugins/git/git.plugin.zsh
+# Load OMZ library and plugins
+zinit wait is-snippet for \
+    OMZP::docker-compose \
+    OMZP::command-not-found \
+    OMZL::git.zsh \
+    OMZP::git \
+    OMZL::history.zsh
 
-zinit ice wait'!0'
-zinit snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
+# Load OMZ `_*` files
+zinit wait is-snippet as"completion" for \
+    OMZP::docker/_docker \
+    OMZP::docker-compose/_docker-compose
 
-zinit ice wait'!0'
-zinit light djui/alias-tips
+zinit cdclear -q
 
-zinit light zdharma/fast-syntax-highlighting
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+HIST_STAMPS="yyyy-mm-dd"
 
-zinit light yous/vanilli.sh
+zinit for \
+    light-mode zdharma/fast-syntax-highlighting \
+    light-mode yous/vanilli.sh \
+    light-mode zsh-users/zsh-autosuggestions \
+    light-mode zsh-users/zsh-completions
 
-zinit ice wait'!0'
-zinit light rupa/z
-
-zinit ice wait'!0'
-zinit light hlissner/zsh-autopair
-
-zinit light zsh-users/zsh-autosuggestions
-
-zinit light zsh-users/zsh-completions
-
-zinit ice wait'!0'
-zinit light zsh-users/zsh-history-substring-search
+zinit wait for \
+    light-mode djui/alias-tips \
+    light-mode rupa/z \
+    light-mode hlissner/zsh-autopair \
+    light-mode zsh-users/zsh-history-substring-search
 
 zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
 zinit light trapd00r/LS_COLORS
 
+# load theme
 zinit light geometry-zsh/geometry
 
 # setup for fzf
