@@ -12,7 +12,7 @@ autoload -Uz _zinit
 ### End of Zinit installer's chunk
 
 # Load OMZ library and plugins
-zinit wait is-snippet for \
+zinit lucid wait is-snippet for \
     OMZP::docker-compose \
     OMZP::command-not-found \
     OMZL::git.zsh \
@@ -20,7 +20,7 @@ zinit wait is-snippet for \
     OMZL::history.zsh
 
 # Load OMZ `_*` files
-zinit wait is-snippet as"completion" for \
+zinit lucid wait is-snippet as"completion" for \
     OMZP::docker/_docker \
     OMZP::docker-compose/_docker-compose
 
@@ -40,7 +40,7 @@ zinit for \
     light-mode zsh-users/zsh-autosuggestions \
     light-mode zsh-users/zsh-completions
 
-zinit wait for \
+zinit lucid wait for \
     light-mode djui/alias-tips \
     light-mode rupa/z \
     light-mode hlissner/zsh-autopair \
