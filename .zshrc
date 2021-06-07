@@ -48,6 +48,7 @@ zinit lucid wait for \
 
 zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
 zinit light trapd00r/LS_COLORS
+zstyle ':completion:*' list-colors "${LS_COLORS}" # 補完候補のカラー設定
 
 # load theme
 zinit light geometry-zsh/geometry
