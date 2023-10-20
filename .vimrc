@@ -10,6 +10,7 @@ Plug 'w0rp/ale'
 
 " color scheme
 Plug 'sjl/badwolf'
+Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
 Plug 'joshdick/onedark.vim'
 Plug 'altercation/vim-colors-solarized'
@@ -22,11 +23,12 @@ filetype plugin indent on
 syntax enable
 
 set t_Co=256
-" syntax on "コードの色分け
-" autocmd ColorScheme * highlight Normal ctermbg=none
+autocmd ColorScheme * highlight Normal ctermbg=none
 " autocmd ColorScheme * highlight LineNr ctermbg=none
-" set background=dark
-colorscheme badwolf
+" autocmd ColorScheme * highlight NonText ctermbg=none
+" autocmd ColorScheme * highlight Special ctermbg=none
+set background=dark
+colorscheme gruvbox
 
 set encoding=utf-8
 scriptencoding utf-8
